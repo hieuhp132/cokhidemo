@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ScrollReveal from "../components/ScrollReveal";
 import CategoryCard from "../components/CategoryCard";
 import ProductCard from "../components/ProductCard";
@@ -7,6 +7,9 @@ import TypingGroupLoop from "../components/TypingText";
 import { catalog } from "../data/catalog";
 import { products } from "../data/products";
 import MaterialFilter from "../components/MaterialFilter";
+import Hero3D from "../components/hero/Hero3d";
+import ProductCard3D from "../components/product/ProductCard3d";
+// import CadViewer from "../components/cad/CadViewer";
 /* ================== STYLES ================== */
 const styles = {
   /* ===== BANNER ===== */
@@ -145,6 +148,15 @@ const Home = () => {
       ? products
       : products.filter((p) => p.material === materialFilter);
 
+  const [selectedProduct, setSelectedProduct] = useState(filteredProducts[0] || null);
+
+  // keep selected product in sync when the visible list changes
+  useEffect(() => {
+    if (!selectedProduct || !filteredProducts.find((p) => p.id === selectedProduct.id)) {
+      setSelectedProduct(filteredProducts[0] || null);
+    }
+  }, [filteredProducts]);
+
   return (
     <>
       {/* ===== BANNER ===== */}
@@ -210,7 +222,7 @@ const Home = () => {
       />
       </ScrollReveal>
 
-      <ScrollReveal>
+      {/* <ScrollReveal>
         <div style={styles.grid4}>
         {filteredProducts.map((p) => (
           <ProductCard key={p.id} product={p} />
@@ -230,8 +242,56 @@ const Home = () => {
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
-      </ScrollReveal>
+      </ScrollReveal> */}
 
+
+          <Hero3D />
+
+      <div style={{ marginTop: 24 }} />
+
+      <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24, marginTop: 24 }}>
+        <div>
+          <div style={styles.grid4}>
+            {filteredProducts.map((p) => (
+              <div key={p.id} style={{ border: selectedProduct && selectedProduct.id === p.id ? "2px solid #fbbf24" : "2px solid transparent", borderRadius: 12, padding: 6 }}>
+                <ProductCard3D product={p} onClick={(prod) => setSelectedProduct(prod)} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <aside style={{ background: "#0b0e11", color: "#e5e7eb", padding: 18, borderRadius: 12 }}>
+          {selectedProduct ? (
+            <div>
+              <h3 style={{ marginTop: 0 }}>{selectedProduct.name}</h3>
+              <div style={{ color: "#9ca3af", marginBottom: 12 }}>{selectedProduct.id}</div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: "#fbbf24" }}>{selectedProduct.price.toLocaleString()} đ</div>
+              <div style={{ marginTop: 12 }}>
+                <strong>Stock:</strong> {selectedProduct.stock}
+              </div>
+              <div style={{ marginTop: 12 }}>
+                <strong>Specifications</strong>
+                <ul>
+                  {Object.entries(selectedProduct.spec || {}).map(([k, v]) => (
+                    <li key={k} style={{ marginTop: 6 }}><strong>{k}:</strong> {String(v)}</li>
+                  ))}
+                </ul>
+              </div>
+              <div style={{ marginTop: 16 }}>
+                <button style={{ background: "#fbbf24", border: "none", padding: "8px 12px", fontWeight: 700, borderRadius: 8 }}>
+                  Thêm vào giỏ
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div>Không có sản phẩm nào được chọn.</div>
+          )}
+        </aside>
+      </div>
+
+      {/* <div style={{ margin: "40px 0" }}>
+        <CadViewer product={selectedProduct} height={360} />
+      </div> */}
 
       <Footer />
     </>

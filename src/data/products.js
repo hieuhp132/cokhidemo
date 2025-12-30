@@ -1,5 +1,4 @@
 export const products = [
-  /* ================= FASTENER ================= */
   {
     id: "BL-IN-M8-30",
     name: "Bulong Inox M8",
@@ -33,7 +32,6 @@ export const products = [
     },
   },
 
-  /* ================= RETAINER ================= */
   {
     id: "LD-THEP-M8",
     name: "Long đền phẳng M8",
@@ -65,7 +63,6 @@ export const products = [
     },
   },
 
-  /* ================= UTILITY ================= */
   {
     id: "KEO-LOCK-XANH",
     name: "Keo khóa ren Loctite 243",
@@ -95,7 +92,6 @@ export const products = [
     },
   },
 
-  /* ================= MEASURING ================= */
   {
     id: "TK-VER-150",
     name: "Thước kẹp cơ 150mm",
@@ -111,7 +107,6 @@ export const products = [
     },
   },
 
-  /* ================= TOOLS ================= */
   {
     id: "LUC-GIAC-SET",
     name: "Bộ lục giác chữ L",
@@ -126,7 +121,6 @@ export const products = [
     },
   },
 
-  /* ================= COMBO ================= */
   {
     id: "COMBO-OC-VIT",
     name: "Combo ốc vít tổng hợp",
@@ -141,3 +135,35 @@ export const products = [
     },
   },
 ];
+
+export const materialColorMap = {
+  INOX: "#9ca3af",
+  STEEL: "#4b5563",
+  CARBON: "#1f2933",
+};
+
+// export const products = [
+//   {
+//     id: 1,
+//     name: "Bulong Inox M8",
+//     material: "INOX",
+//     price: "12.000₫",
+//     type: "bolt",
+//   },
+//   {
+//     id: 2,
+//     name: "Vòng bi 6502",
+//     material: "STEEL",
+//     price: "85.000₫",
+//     type: "bearing",
+//   },
+//   {
+//     id: 3,
+//     name: "Trục truyền động",
+//     material: "CARBON",
+//     price: "320.000₫",
+//     type: "shaft",
+//   },
+// ];
+
+
